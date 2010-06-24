@@ -83,7 +83,7 @@
           </th>
         <th>
             
-            <form method="POST" action="/admin/crawler/">
+            <form method="POST" action="{% url 'startCrawler' %}">
               {% csrf_token %}
                <input type="text" name="id"  value="1" hidden >
                <input type="submit" name="start" value="Start" class="btn btn-primary">
@@ -92,7 +92,7 @@
         </th>
         <th>
             
-            <form method="POST" action="/admin/crawler/">
+            <form method="POST" action="{% url 'stopCrawler' %}">
               {% csrf_token %}
                <input type="submit" name="stop" value="Stop" class="btn btn-danger">
              </form>
