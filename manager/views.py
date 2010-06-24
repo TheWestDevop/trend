@@ -494,6 +494,8 @@ def hashPassword(word):
 runingcrawlers = {}
 
 def startCrawler(request):
+      try:
+           
        id = request.POST.get('id')
        source = Source.objects.get(id=id)
        sourceurl = source.url
@@ -501,16 +503,23 @@ def startCrawler(request):
        crawlerone.start()
        runingcrawlers.update( {'id':id,'inst':crawlerone} )
        
-       return render(request,'dashboard')
+       return redirect('dashboard')
+      except ObjectDoesNotExist:
+         return redirect('dashboard')
+
 
 def stopCrawler(request):
+      try:
        id = request.POST.get('id')
        source = Source.objects.get(id=id)
        sourceurl = source.url
        crawlerone =  Crawler(sourceurl)
        crawlerone.stop()
+       runingcrawlers.update( {'id':id,'inst':crawlerone} )
        
-       return render(request,'dashboard')
+       return redirect('dashboard')
+      except ObjectDoesNotExist:
+         return redirect('dashboard')
 
 
 
