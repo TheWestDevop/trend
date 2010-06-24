@@ -7,4 +7,5 @@ urlpatterns = [
     path('auth',auth,name="auth"),
     path('logout/',logout,name="logout"),
     path('crawler/',startCrawler,name="startCrawler"),
+    path('endcrawler/',startCrawler,name="stopCrawler"),
 ]

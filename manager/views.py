@@ -501,8 +501,16 @@ def startCrawler(request):
        crawlerone.start()
        runingcrawlers.update( {'id':id,'inst':crawlerone} )
        
-       return render(request,'logout')
+       return render(request,'dashboard')
 
+def stopCrawler(request):
+       id = request.POST.get('id')
+       source = Source.objects.get(id=id)
+       sourceurl = source.url
+       crawlerone =  Crawler(sourceurl)
+       crawlerone.stop()
+       
+       return render(request,'dashboard')
 
 
 
