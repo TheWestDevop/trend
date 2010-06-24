@@ -17,7 +17,7 @@ def getAllArrticles(request):
                 pages = paginator.page(paginator.num_pages)       
         data = {}
         data['total']=Articles.objects.count()
-        data['page']=pages
+        data['page']=pages.start_index()
         data['data']=[]
         items = []
         for article in articles:
