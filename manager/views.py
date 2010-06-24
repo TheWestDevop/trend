@@ -434,7 +434,7 @@ def dashboard(request):
     if request.session.has_key('username'):  
        user = User.objects.count()
        admin = Admin.objects.count()
-       sources = 0
+       sources = Source.objects.count()
        onlineuser = 0
        context = {
        "source":sources,
