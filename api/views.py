@@ -1,6 +1,10 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.shortcuts import render
+from models.models import Articles
+from django.http import JsonResponse
 
-# Create your views here.
+
+def list_articles(request):
+    template_name = 'articles.html'
+    article = Articles.objects.all().values()
+    article_list = list(article)
+    return JsonResponse(article_list,safe=False)

@@ -24,6 +24,13 @@ sid int,
 status int,
 author varchar(200),
 pubdate datetime);
-create table user(id int primary key auto_increment,username varchar(10),password varchar(200),secret varchar(200),isemailverified int,isphoneverified int,status int,createdate datetime);
-create table profile(id int primary key auto_increment,uid int,firstname varchar(100),lastname varchar(100),othername varchar(100),email varchar(100),telephone varchar(50),address varchar(100),address2 varchar(100),city int,state int,country int,postalcode varchar(20),createdate datetime);
+create table user(id int primary key auto_increment,username varchar(10),
+password varchar(200),secret varchar(200),isemailverified int,
+isphoneverified int,status int,
+createdate datetime);
+create table profile(id int primary key auto_increment,uid int,firstname varchar(100),
+lastname varchar(100),othername varchar(100),email varchar(100),
+telephone varchar(50),address varchar(100),address2 varchar(100),city int,
+state int,country int,postalcode varchar(20),
+createdate datetime);
 
