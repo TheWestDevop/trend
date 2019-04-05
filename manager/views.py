@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render,redirect
 from models.models import Country,State,Town,Source,Profile,User,Articles
+from website.forms import ArticleForm
 
 # Create your views here.
 #CRUD Country
@@ -197,51 +198,59 @@ def delete_source(request,id):
 
 
 #CRUD  Articles
-
-
-def create_article(request):
-        form = ArticleForm(request.POST or None)
-
-        if form.is_valid():
-           form.save()
-        return redirect('list_articles')
-
-        return render(request,'',{'forms': form})  
-
-
 def list_articles(request):
-    template_name = 'articles.html'
+    template_name = 'index.html'
     article = Articles.objects.all()
 
     return render(request,template_name,{'articles': article}) 
 
 
+
+def create_article(request):
+      if request.method == 'POST':
+            title = request.POST.get('title')
+            summary = request.POST.get('summary')
+            shortdesc = request.POST.get('shortdesc')
+            content = request.POST.get('content')
+            sid = request.POST.get('sid')
+            author = request.POST.get('author')
+            status = 1
+            obj = Articles.objects.create(
+               title = title,
+               summary = summary,
+               shortdesc = shortdesc,
+               content = content,
+               sid = sid,
+               status = status,
+               author = author,
+            )
+            return redirect('list_articles')
+      else:
+         return render(request,'forms/article.html')  
+
+
+
 def update_article(request,id):
 
-    article  = Articles.objectss.get(id=id)
-
+    article  = Articles.objects.get(id=id)
     form = ArticleForm(request.POST or None, instance=article)
 
     if form.is_valid():
-
         form.save()
-
         return redirect('list_articles')
-
-
-    return render(request,'',{'form': form , 'article':article})
+    return render(request,'forms/article_update.html',{'form':form,'article':article})
 
 
 def delete_article(request,id):
     
-     article  = Articles.objectss.get(id=id)
+     article  = Articles.objects.get(id=id)
      
      if request.method == 'POST':
         article.delete()
         return redirect('list_articles')
       
 
-     return render(request,'',{'article': article}) 
+     return render(request,'delete.html',{'article': article}) 
 
 
 

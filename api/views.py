@@ -3,7 +3,7 @@ from models.models import Articles
 from django.http import JsonResponse
 
 
-def list_articles(request):
+def list_article(request):
     template_name = 'articles.html'
     article = Articles.objects.all().values()
     article_list = list(article)
