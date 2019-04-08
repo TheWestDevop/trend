@@ -233,12 +233,23 @@ def create_article(request):
 def update_article(request,id):
 
     article  = Articles.objects.get(id=id)
-    form = ArticleForm(request.POST or None, instance=article)
 
-    if form.is_valid():
-        form.save()
-        return redirect('list_articles')
-    return render(request,'forms/article_update.html',{'form':form,'article':article})
+    
+
+    if request.method == 'POST':
+            article.title = request.POST.get('title')
+            article.summary = request.POST.get('summary')
+            article.shortdesc = request.POST.get('shortdesc')
+            article.content = request.POST.get('content')
+            article.sid = 3244;
+            article.author = request.POST.get('author')
+            article.status = 1
+            article.save()
+
+            return redirect('list_articles')
+
+
+    return render(request,'forms/article.html',{'article':article})
 
 
 def delete_article(request,id):
