@@ -2,7 +2,11 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render,redirect
-from models.models import Country,State,Town,Source,Profile,User,Articles
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import logout as AuthLogOut
+from models.models import *
+import random,string,hashlib
 
 
 # Create your views here.
@@ -358,3 +362,131 @@ def delete_user(request,id):
       
 
      return render(request,'',{'user': user}) 
+
+
+#CRUD for Admin ------------------------------------------------------------------------------------------------
+def ListAdmin(request):
+    admin = Admin.objects.all()
+    return render(request,'admin.html',{'admins':admin}) 
+
+def CreateAdmin(request):
+    if request.method == 'POST':
+           username      = request.POST.get('username')
+           plainpassword = request.POST.get('password')
+           admintype     = int(request.POST.get('admintype'))
+           status        =  int(request.POST.get('status'))
+           secret       =  secretGenerator()
+           password     = hashPassword(plainpassword + secret)
+
+           
+
+
+           obj = Admin.objects.create(
+               username = username,
+               password = password,
+               secret= secret,
+               admintype = admintype,
+               status = status,
+               )
+           return redirect('ListAdmin')
+    else:
+         return render(request,'forms/user.html') 
+
+def UpdateAdmin(request,id):
+    admin  = Admin.objects.get(id=id)
+    if request.method == 'POST':
+           username      = request.POST.get('username')
+           plainpassword = request.POST.get('password')
+           admintype     = int(request.POST.get('admintype'))
+           status        =  int(request.POST.get('status'))
+           secret        = admin.secret
+           password      = hashPassword(plainpassword + secret)
+
+           admin.save()
+
+           return redirect('ListAdmin')
+
+
+    return render(request,'forms/admin.html',{'admin':admin})  
+
+def DeleteAdmin(request,id):
+    
+    admin = Admin.objects.get(id=id)
+     
+    if request.method == 'POST':
+        admin.delete()
+        return redirect('ListAdmin')
+      
+
+    return render(request,'admin.html',{'admin': admin}) 
+
+#login,logout,auth----------------------------------------------------------------------------------------------
+def login(request):
+     return render(request,'login/index.html')
+
+
+def dashboard(request):
+      
+
+    if request.session.has_key('username'):  
+       user = User.objects.count()
+       admin = Admin.objects.count()
+       sources = 0
+       onlineuser = 0
+       context = {
+       "source":sources,
+       "user":user,
+       "onlineuser":onlineuser
+       }
+       return render(request,'dashboard/index.html',context) 
+    else :
+         return redirect('login')
+
+def logout(request):
+     AuthLogOut(request)
+     msg = "You Have successfully log out"
+     messages.success(request,msg,extra_tags="success")
+     return redirect('login')
+
+def auth(request):
+    if request.method == 'POST':
+           username      = request.POST.get('username')
+           plainpassword = request.POST.get('password')
+    try :   
+            user = Admin.objects.get(username=username)
+
+            secret = user.secret
+           
+            passwordConfirm = hashPassword(plainpassword+secret)
+
+
+            if passwordConfirm == user.password :
+              request.session['username'] = user.username
+              return redirect('dashboard')
+              pass
+        
+            else:
+               errormsg = "Invalid Username or Password"
+               messages.error(request,errormsg)
+               return redirect('login')
+               pass
+    except ObjectDoesNotExist:
+
+               errormsg = "Invalid Username or Password"
+               messages.error(request,errormsg)
+               return redirect('login')
+               pass
+
+    else:
+         return redirect('login')
+def secretGenerator():
+    letters = string.ascii_lowercase + string.digits + string.punctuation
+    return ''.join(random.choice(letters) for i in range(10))
+
+
+def hashPassword(word):
+    password = hashlib.sha256(word.encode()).hexdigest()
+    return password
+
+
+

@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'models',
     'manager',
     'website',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -74,6 +73,7 @@ TEMPLATES = [
         },
     }
 ]
+
 
 
 WSGI_APPLICATION = 'trend.wsgi.application'
