@@ -70,6 +70,38 @@
             </div>
           </div>
         </div>
+        <div>
+          <br>
+      <table border="1">
+        <tr>
+          <th>
+            &nbsp;
+            &nbsp;
+            google.com
+            &nbsp;
+            &nbsp;
+          </th>
+        <th>
+            
+            <form method="POST" action="/admin/crawler/">
+              {% csrf_token %}
+               <input type="text" name="id"  value="1" hidden >
+               <input type="submit" name="start" value="Start" class="btn btn-primary">
+             </form>
+
+        </th>
+        <th>
+            
+            <form method="POST" action="/admin/crawler/">
+              {% csrf_token %}
+               <input type="submit" name="stop" value="Stop" class="btn btn-danger">
+             </form>
+        </th>
+      </tr>
+      </table>
+    
+     
+        </div>
       </div>
     </main>
 

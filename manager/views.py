@@ -7,6 +7,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import logout as AuthLogOut
 from models.models import *
 import random,string,hashlib
+from crawler.crawler import Crawler
+
+
 
 
 # Create your views here.
@@ -487,6 +490,19 @@ def secretGenerator():
 def hashPassword(word):
     password = hashlib.sha256(word.encode()).hexdigest()
     return password
+
+runingcrawlers = {}
+
+def startCrawler(request):
+       id = request.POST.get('id')
+       source = Source.objects.get(id=id)
+       sourceurl = source.url
+       crawlerone =  Crawler(sourceurl)
+       crawlerone.start()
+       runingcrawlers.update( {'id':id,'inst':crawlerone} )
+       
+       return render(request,'logout')
+
 
 
 
