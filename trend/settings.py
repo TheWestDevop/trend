@@ -28,9 +28,7 @@ SECRET_KEY = 'c0_2i0zv1#aa*k2uy4k%+$dq-b-uvd1nvuhqd0x=16tavumbyj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'dashboard.heroku.com'
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -140,6 +138,11 @@ STATIC_ROOT = (os.path.join(BASE_DIR,"static"))
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
+
+LOGIN_REDIRECT_URL = '/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 import dj_database_url
 
