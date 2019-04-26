@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'trend.urls'
@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'trend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'trend',
-        'USER' : 'root',
-        'PASSWORD' : '',
-        'HOST' :'Localhost',
-        'PORT' : '3306',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd5h6jcfv7pjdlk',
+        'USER' : 'hinzgyfoplhmev',
+        'PASSWORD' :'5f897fa17f76e4a92df56d99b042561d519652f6f679b261db687a030adacdc7',
+        'HOST' :'ec2-54-235-208-103.compute-1.amazonaws.com',
+        'PORT' : '5432',
     }
 }
 
