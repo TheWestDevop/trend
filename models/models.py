@@ -53,7 +53,7 @@ class Profile(models.Model):
       state = models.IntegerField()
       country = models.IntegerField()
       postal = models.CharField(max_length=20)
-      createdate = models.DateTimeField(default=now)
+      createdate = models.CharField(max_length=20)
 
 
 
@@ -66,7 +66,7 @@ class User(models.Model):
       isemailverified = models.IntegerField()
       isphoneverified  = models.IntegerField()
       status = models.IntegerField()
-      createdate = models.DateTimeField(default=now)
+      createdate = models.CharField(max_length=20)
 
 
 class Admin(models.Model):
@@ -76,7 +76,7 @@ class Admin(models.Model):
        secret        = models.CharField(max_length=20)
        admintype     = models.IntegerField()
        status        = models.IntegerField()
-       createdate    = models.DateTimeField(default=now)
+       createdate    = models.CharField(max_length=20)
 
 
 class AdminType(models.Model):
