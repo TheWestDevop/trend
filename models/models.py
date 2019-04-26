@@ -35,7 +35,7 @@ class  Articles(models.Model):
        sid  = models.IntegerField()
        status = models.IntegerField()
        author = models.CharField(max_length=200)
-       pubdate =  models.DateTimeField(default=now)
+       pubdate =  models.CharField(max_length=255)
 
 
 class Profile(models.Model):
