@@ -7,8 +7,10 @@ from django.views.decorators.http import *
 @require_http_methods("GET")
 def getAllArrticles(request):
         article = Articles.objects.all()
-       
-        return JsonResponse(article)
+        data ={
+          'article':article
+         }
+        return JsonResponse(data)
 
             
 
