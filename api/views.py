@@ -1,23 +1,35 @@
 from models.models import Articles
 from django.core.paginator import Paginator
-from rest_framework import status
-from rest_framework.pagination import PageNumberPagination
-from rest_framework import mixins,viewsets
-from .serializer import ArticleSerializer
+from django.http import JsonResponse
+from django.views.decorators.http import *
 
 
-class  StandardResultsetPagination(PageNumberPagination):
-       page_size = 10
-       page_size_query_param = 'page_size'
-       max_page_size = 1000
        
+       summary = models.TextField()
+       shortdesc = models.TextField()
+       content = models.TextField()
+       sid  = models.IntegerField()
+       status = models.IntegerField()
+       author = models.CharField(max_length=200)
+       pubdate =  models.CharField(max_length=255)
 
 #create your view
-class ArticleView(viewsets.ModelViewSet):
-        pagination_class = StandardResultsetPagination
-        queryset = Articles.objects.all() 
-        paginate_by = 10
-        serializer_class =  ArticleSerializer  
-        serializer = serializer_class(queryset,many=True)    
+@require_GET()
+def getAllArrticles(request):
+        article =  Articles.objects.all()
+        data = {
+            'id':article.id,
+            'title':article.title,
+            'summary':article.summary,
+            'shortdesc':article.shortdesc,
+            'content':article.content,
+            'sid':article.sid,
+            'status':article.status,
+            'author':article.author,
+            'pubdate':article.pubdate
+        }
+        return JsonResponse(data)
+
+            
 
 
