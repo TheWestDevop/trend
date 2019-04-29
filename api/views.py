@@ -7,9 +7,12 @@ from django.views.decorators.http import *
 @require_http_methods("GET")
 def getAllArrticles(request):
         MAX_OBJECTS = 20
+        page = request.GET.get('page',1)
         article = Articles.objects.all()[:MAX_OBJECTS]
-        print(article)
+        paginator = Paginator(article,10)
+        pages = paginator.page(pages)
         data = {
+                'pagination':pages,
                 'Article':list(
                         article.values("id","title","summary",
                         "shortdesc","content","sid","status","author","pubdate"))
