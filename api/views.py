@@ -12,7 +12,7 @@ def getAllArrticles(request):
         paginator = Paginator(article,10)
         pages = paginator.page(pageNum)
         data = {
-                'pagination':list(pages),
+                
                 'Article':list(
                         article.values("id","title","summary",
                         "shortdesc","content","sid","status","author","pubdate"))
