@@ -6,14 +6,10 @@ from django.views.decorators.http import *
 #create your view
 @require_http_methods("GET")
 def getAllArrticles(request):
-        MAX_OBJECTS = 20
-        pageNum = request.GET.get('page',1)
-        article = Articles.objects.all()[:MAX_OBJECTS]
-        paginator = Paginator(article,10)
-        pages = paginator.page(pageNum)
+        article = Articles.objects.all()
         data = {
                 
-                'Article':list(pages,
+                'Article':list(
                         article.values("id","title","summary",
                         "shortdesc","content","sid","status","author","pubdate"))
          }
