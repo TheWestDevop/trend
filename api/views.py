@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import *
 
 #create your view
-@require_GET('GET')
+@require_http_methods("GET")
 def getAllArrticles(request):
         article =  Articles.objects.all()
         data = {
