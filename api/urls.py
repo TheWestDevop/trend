@@ -5,5 +5,5 @@ from .views import *
 
 
 urlpatterns = [
-    url('',include(router.urls)),
+    url('list', getAllArrticles, name='getAllArrticles'),
 ]
