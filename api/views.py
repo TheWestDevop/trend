@@ -14,7 +14,7 @@ def getAllArrticles(request):
         data['data']=[]
         items = []
         for article in articles:
-           source   =  Articles.objects.raw("SELECT source,sourceurl FROM articles a,source b,subcategory c WHERE a.sid = b.id")
+           sources   =  Articles.objects.raw("SELECT source,sourceurl FROM articles a,source b,subcategory c WHERE a.sid = b.id")
            item = {
               "title":article.title,
               "shortdescription":article.content[0:200],
@@ -22,8 +22,8 @@ def getAllArrticles(request):
               "pubdate":article.pubdate,
               "content":article.content,
               "image":article.imageurl,
-              "source":source.source,
-              "sourcelink":source.sourceurl
+              "source":sources.source,
+              "sourcelink":sources.sourceurl
            }
            items.add(item) 
         data['data'] = items
