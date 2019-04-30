@@ -1,4 +1,4 @@
-from models.models import Articles
+from models.models import Articles,Source
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.views.decorators.http import *
@@ -14,7 +14,7 @@ def getAllArrticles(request):
         data['data']=[]
         items = []
         for article in articles:
-           sources   =  Articles.objects.raw("SELECT source,sourceurl FROM source b,articles a WHERE b.id = a.sid")
+           sources   =  Source.objects.raw("SELECT source,sourceurl FROM source b,articles a WHERE b.id = a.sid")
            item = {
               "title":article.title,
               "shortdescription":article.content[0:200],
