@@ -499,9 +499,9 @@ def startCrawler(request):
        id = request.POST.get('id')
        source = Source.objects.get(id=id)
        sourceurl = source.url
-       crawlerone =  Crawler(sourceurl)
-       crawlerone.start()
-       runingcrawlers.update( {'id':id,'inst':crawlerone} )
+       crawler =  Crawler(sourceurl)
+       crawler.start()
+       runingcrawlers.update( {'id':id,'inst':crawler} )
        
        return redirect('dashboard')
       except ObjectDoesNotExist:

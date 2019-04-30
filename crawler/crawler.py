@@ -1,5 +1,8 @@
 import newspaper
 import nltk
+import random
+from models.models import Articles
+from datetime import datetime 
 
 
 
@@ -25,13 +28,28 @@ class Crawler:
 				article.download()
 				article.parse()
 				article.nlp()
+				Articles.objects.create(
+                            title=article.title,
+                            summary=article.summary,
+                            shortdesc=article.text[:200],
+                            content=article.text,
+							sid=random.randint(1,10),
+							status=random.randint(0,1),
+                            author=article.authors,
+                            pubdate= datetime.now(),
+                            imageurl=article.top_image,
+							catid=random.randint(1,10),
+							imgid=random.randint(1,10),
+                        )
 				print(article.url)
 				print(article.authors)
-				article.title
-				article.text
-			
-		pass
-		
+				print(article.title)
+				print(article.summary)	
+				print(article.text)	
+				print(article.top_image)	
+				print(article.publish_date)
+		        
+				
 	#stop the crawler
 	def stop(self):
 		pass
@@ -40,6 +58,8 @@ class Crawler:
 	def pause(self):
 		pass
 	
+
+
 	
 if __name__=="__main__":
 	url="https://www.vogue.com"
