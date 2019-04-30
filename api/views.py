@@ -7,10 +7,17 @@ from django.views.decorators.http import *
 @require_http_methods("GET")
 def getAllArrticles(request):
         articles = Articles.objects.all()
-        
+        page = request.GET.get('page',1)
+        paginator = Paginator(articles)
+        try:
+           pages = paginator.page(page)
+        except PageNotAnInteger:
+               pages = paginator.page(1) 
+        except EmptyPage:
+                pages = paginator.page(paginator.num_pages)       
         data = {}
         data['total']=Articles.objects.count()
-        data['page']=1
+        data['page']=pages
         data['data']=[]
         items = []
         for article in articles:
