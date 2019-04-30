@@ -9,7 +9,7 @@ def getAllArrticles(request):
         articles = Articles.objects.all()
         
         data = {}
-        data['total']=Articles.objects.Count()
+        data['total']=Articles.objects.count()
         data['page']=1
         data['data']=[]
         items = []
