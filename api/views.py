@@ -14,7 +14,7 @@ def getAllArrticles(request):
         data['data']=[]
         items = []
         for article in articles:
-           sources   =  Source.objects.raw("SELECT name,url FROM source b,articles a WHERE b.id = %s",[article.sid])
+          for sources   in  Source.objects.raw("SELECT name,url FROM articles a , source b WHERE b.id = %s",[article.sid]):
            item = {
               "title":article.title,
               "shortdescription":article.content[0:200],
