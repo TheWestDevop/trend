@@ -25,7 +25,7 @@ def getAllArrticles(request):
               "source":sources.name,
               "sourcelink":sources.url
            }
-           items.add(item) 
+           items.append(item) 
         data['data'] = items
         data['message'] = "successfully fetched articles"     
 
