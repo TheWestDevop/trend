@@ -1,5 +1,5 @@
 from models.models import Articles,Source
-from django.core.paginator import Paginator
+from django.core.paginator import *
 from django.http import JsonResponse
 from django.views.decorators.http import *
 
