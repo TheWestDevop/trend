@@ -6,15 +6,31 @@ from django.views.decorators.http import *
 #create your view
 @require_http_methods("GET")
 def getAllArrticles(request):
-        article = Articles.objects.all()
-        data = {
-                
-                'Article':list(
-                        article.values("id","title","summary",
-                        "shortdesc","content","sid","status","author","pubdate"))
-         }
+        articles = Articles.objects.all()
+        
+        data = {}
+        data['total']=Articles.objects.Count()
+        data['page']=1
+        data['data']=[]
+        items = []
+        for article in articles:
+           source   =  Articles.objects.raw("SELECT source,sourceurl FROM articles a,source b,subcategory c WHERE a.sid = b.id")
+           item = {
+              "title":article.title,
+              "shortdescription":article.content[0:200],
+              "author":article.author,
+              "pubdate":article.pubdate,
+              "content":article.content,
+              "image":article.image,
+              "source":source.source,
+              "sourcelink":source.sourceurl
+           }
+           items.add(item) 
+        data['data'] = items
+        data['message'] = "successfully fetched articles"     
+
         return JsonResponse(data)
 
             
-
+        
 

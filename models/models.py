@@ -32,10 +32,33 @@ class  Articles(models.Model):
        summary = models.TextField()
        shortdesc = models.TextField()
        content = models.TextField()
+       catid  = models.IntegerField()
        sid  = models.IntegerField()
+       imgid  = models.IntegerField()
        status = models.IntegerField()
        author = models.CharField(max_length=200)
+       imageurl = models.CharField(max_length=500,blank=True)
+       thumburl = models.CharField(max_length=500,blank=True)
        pubdate =  models.CharField(max_length=255)
+
+
+class Images(models.Model):
+      id   = models.AutoField(primary_key=True)
+      size = models.CharField(max_length=100)
+      articleid = models.IntegerField()
+      position = models.IntegerField()
+      imageurl = models.CharField(max_length=500)
+
+
+class Category(models.Model):
+      id   = models.AutoField(primary_key=True)
+      name = models.CharField(max_length=100)
+
+class SubCategory(models.Model):
+      id   = models.AutoField(primary_key=True)
+      cid = models.IntegerField()
+      name = models.CharField(max_length=100)
+
 
 
 class Profile(models.Model):
