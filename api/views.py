@@ -8,7 +8,7 @@ from django.views.decorators.http import *
 def getAllArrticles(request):
         articles = Articles.objects.all()
         page = request.GET.get('page',1)
-        paginator = Paginator(articles)
+        paginator = Paginator(articles,10)
         try:
            pages = paginator.page(page)
         except PageNotAnInteger:
