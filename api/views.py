@@ -21,7 +21,7 @@ def getAllArrticles(request):
               "author":article.author,
               "pubdate":article.pubdate,
               "content":article.content,
-              "image":article.image,
+              "image":article.imageurl,
               "source":source.source,
               "sourcelink":source.sourceurl
            }
