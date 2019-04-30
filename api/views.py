@@ -22,8 +22,8 @@ def getAllArrticles(request):
               "pubdate":article.pubdate,
               "content":article.content,
               "image":article.imageurl,
-              "source":sources.source,
-              "sourcelink":sources.sourceurl
+              "source":sources.name,
+              "sourcelink":sources.url
            }
            items.add(item) 
         data['data'] = items
